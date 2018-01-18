@@ -1,0 +1,115 @@
+# ---------------- #
+#   Main Configs   #
+# ---------------- #
+baseurl:
+url: https://lichao890427.github.io
+date_format: "ordinal"
+title: lichao890427的博客
+subtitle: "莫以恶小而不为，莫以善小而为之"
+description: "lichao890427的个人博客"
+keywords: 
+favicon: /favicon.ico
+encoding: "utf-8"
+side_bar_repo_limit: 5
+
+# ---------------- #
+#      Author      #
+# ---------------- #
+author: lichao890427
+github_username: lichao890427
+location: Beijing, China
+email: lichao.890427@163.com
+
+# ---------------- #
+#    Navigation    #
+# ---------------- #
+navs:
+  -
+    href: /
+    label: 首页
+
+  -
+    href: /categories/
+    label: 分类
+
+  -
+    href: /wiki/
+    label: 维基
+
+  -
+    href: /links/
+    label: 链接
+
+  -
+    href: /about/
+    label: 关于
+
+# ---------------- #
+#       RSS        #
+# ---------------- #
+subscribe_rss: /feed.xml
+
+# ---------------- #
+#      Jekyll      #
+# ---------------- #
+markdown: kramdown
+kramdown:
+    input: GFM
+highlighter: rouge
+paginate: 8
+lsi: false
+quiet: false
+excerpt_separator: "\n\n"
+permalink: /:year/:month/:day/:title/
+plugins:
+    - jekyll-asse
+    - jekyll-feed
+    - jekyll-github-metadata
+    - jekyll-html-pipeline
+    - jekyll-jsonify
+    - jekyll-mentions
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-test-plugin
+    - jemoji
+    - rouge
+collections:
+    wiki:
+        output: true
+        permalink: /wiki/:path/
+
+repository: lichao890427/lichao890427.github.io
+
+# ---------------- #
+#      Comments    #
+# ---------------- #
+# support provider: disqus, gitment
+comments_provider: gitment
+# !!!重要!!! 请修改下面这些信息为你自己申请的
+# !!!Important!!! Please modify infos below to yours
+# https://disqus.com
+disqus:
+    username: lichao890427
+# https://imsun.net/posts/gitment-introduction/
+
+gitment:
+    owner: lichao890427
+    repo: blog-comments
+    oauth:
+        client_id: cff20a080f5f260d265b
+        client_secret: a0847e2c1d028a429c97b0154c782ddb12eb9d3a
+# 在使用其它评论组件时可点击显示 Disqus
+lazy_load_disqus : true
+
+indextank_index: 0
+indextank_api_url: https://www.baidu.com
+
+# ---------------- # 
+#    Analytics     # 
+# ---------------- # 
+google: 
+    analytics_id: UA-106152577-1
+
+baidu-analysis: 00e02139f3377270f9693dc372d36587
+
+theme: jekyll-theme-hacker

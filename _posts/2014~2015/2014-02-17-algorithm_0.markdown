@@ -1,0 +1,110 @@
+---
+layout: post
+title: 矩阵连乘问题算式输出
+categories: Algorithm
+description: 矩阵连乘问题算式输出
+keywords: 
+---
+
+## 背景
+&emsp;&emsp;对于矩阵连乘的最优方式，书上只给了最小乘法次数，也就是最终结果，而具体怎么乘要写成表达式，把括号加到矩阵之间还是要动动脑筋的
+
+```C++
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+#include <time.h>
+using namespace std;
+void addbrace(short* bracearr,int* posmatrix,int begin,int end,int size)
+{
+    if(begin == end)
+        return;
+    //首尾括号
+    bracearr[2*begin]++;
+    bracearr[2*end+1]++;
+    int mid=posmatrix[begin*size+end];
+    addbrace(bracearr,posmatrix,begin,mid,size);
+    addbrace(bracearr,posmatrix,mid+1,end,size);
+}
+void func(int* arr,int size)
+{
+    int* m=new int[size*size];
+    int* s=new int[size*size];
+    int i,j,k;
+    for(i=0;i<size*size;i++)
+    {
+        m[i]=0;
+        s[i]=0;
+    }
+    for(i=0;i<size-1;i++)
+    {
+        for(j=0;j<size-i-1;j++)
+        {//[j][i+j+1]
+            k=j;
+            int minv,minpos=j;
+            minv=arr[j]*arr[k+1]*arr[i+j+2]+m[j*size+k]+m[(k+1)*size+i+j+1];
+            for(k++;k<i+j+1;k++)
+            {
+                int value=arr[j]*arr[k+1]*arr[i+j+2]+m[j*size+k]+m[(k+1)*size+i+j+1];
+                if(value<minv)
+                {
+                    minv=value;
+                    minpos=k;
+                }
+            }
+            m[j*size+i+j+1]=minv;
+            s[j*size+i+j+1]=minpos;
+        }
+    }
+    cout<<"m:"<<endl;
+    for(i=0;i<size;i++)
+    {
+        for(j=0;j<size;j++)
+        {
+            cout<<setw(8);
+            cout<<m[i*size+j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl<<"s:"<<endl;
+    
+    for(i=0;i<size;i++)
+    {
+        for(j=0;j<size;j++)
+        {
+            cout<<s[i*size+j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    short* bracearr=new short[2*size];//left right
+    memset(bracearr,0,2*size*sizeof(short));
+    addbrace(bracearr,s,0,size-1,size);
+    for(i=0;i<size;i++)
+    {
+        while(bracearr[2*i]--)
+            cout<<"(";
+        cout<<"A"<<i+1;
+        while(bracearr[2*i+1]--)
+            cout<<")";
+        if(i != size-1)
+            cout<<"*";
+    }
+    cout<<endl;
+    delete []bracearr;
+    delete []m;
+    delete []s;
+}
+int main(int argc,char* argv[])
+{
+    srand(time(NULL));
+    int size=rand()%20;
+    int* arr=new int[size];
+    for(int i=0;i<size;i++)
+        arr[i]=rand()%50+1;
+    func(arr,size-1);
+    return 0;
+}
+```
+
+![](https://raw.githubusercontent.com/lichao890427/lichao890427.github.io/master/_res/old_blog_11.png)

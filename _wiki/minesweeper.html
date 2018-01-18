@@ -1,0 +1,516 @@
+<html>
+
+<head>
+    <style type="text/css">
+        table td {
+            padding: 0px;
+        }
+        
+		table {
+            padding: 0px;
+        }
+		
+		table th {
+            padding: 0px;
+        }
+		
+		table tr {
+            padding: 0px;
+        }
+		
+        .myButton100 {
+            /* 雷块 */
+            width: 30px;
+            height: 30px;
+            background: #969696;
+        }
+        
+        .myButton101 {
+            /* 未知块 */
+            width: 30px;
+            height: 30px;
+            background: #969696;
+            border-top: #e1e1e1 solid 5px;
+            border-left: #e1e1e1 solid 5px;
+            border-bottom: #666666 solid 5px;
+            border-right: #666666 solid 5px;
+        }
+        
+        .myButton102 {
+            /* 标记为未知的未知块 */
+            width: 30px;
+            height: 30px;
+            background: #969696;
+            font-size: 15px;
+            font-weight: bolder;
+            border-top: #e1e1e1 solid 5px;
+            border-left: #e1e1e1 solid 5px;
+            border-bottom: #666666 solid 5px;
+            border-right: #666666 solid 5px;
+        }
+        
+        .myButton103 {
+            /* 标记为雷的未知块 */
+            width: 30px;
+            height: 30px;
+            background: #969696;
+            color: red;
+            font-size: 5px;
+            font-weight: bolder;
+            border-top: #e1e1e1 solid 5px;
+            border-left: #e1e1e1 solid 5px;
+            border-bottom: #666666 solid 5px;
+            border-right: #666666 solid 5px;
+        }
+        
+        .myButton0 {
+            /* 非雷块，周围0雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+        }
+        
+        .myButton1 {
+            /* 非雷块，周围1雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #3333cc
+        }
+        
+        .myButton2 {
+            /* 非雷块，周围2雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #009933;
+        }
+        
+        .myButton3 {
+            /* 非雷块，周围3雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #ff3333;
+        }
+        
+        .myButton4 {
+            /* 非雷块，周围4雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #663366;
+        }
+        
+        .myButton5 {
+            /* 非雷块，周围5雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #993333;
+        }
+        
+        .myButton6 {
+            /* 非雷块，周围6雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #5ed5e2;
+        }
+        
+        .myButton7 {
+            /* 非雷块，周围7雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #fff909;
+        }
+        
+        .myButton8 {
+            /* 非雷块，周围8雷 */
+            width: 30px;
+            height: 30px;
+            background: #b7b7b7;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #0bff9f;
+        }
+    </style>
+    <script type="text/javascript">
+        function addMine(fatherid, dataarray) {
+            var item = document.getElementById(fatherid);
+            var chmap = {
+                0: " ",
+                1: "1",
+                2: "2",
+                3: "3",
+                4: "4",
+                5: "5",
+                6: "6",
+                7: "7",
+                8: "8",
+                12: "1/2",
+                13: "1/3",
+                14: "1/4",
+                15: "1/5",
+                16: "1/6",
+                17: "1/7",
+                23: "2/3",
+                25: "2/5",
+                27: "2/7",
+                34: "3/4",
+                35: "3/5",
+                37: "3/7",
+                45: "4/5",
+                47: "4/7",
+                56: "5/6",
+                57: "5/7",
+                67: "6/7",
+                100: "☀",
+                101: " ",
+                102: "?",
+                103: "!",
+            };
+            for (var i = 0; i < dataarray.length; i++) {
+                var tr = document.createElement("tr");
+                for (var j = 0; j < dataarray[0].length; j++) {
+                    var td = document.createElement("td");
+                    var button = document.createElement("input");
+                    var v = dataarray[i][j];
+                    button.type = "button";
+                    button.className = "myButton" + v;
+                    button.value = chmap[v];
+                    if (v > 8 && v < 100) {
+                        button.className = "myButton103";
+                    }
+                    if (dataarray.length == 1 && dataarray[0].length == 1) {
+                        item.appendChild(button);
+                        return;
+                    }
+                    td.appendChild(button);
+                    tr.appendChild(td);
+                }
+                item.appendChild(tr);
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <style>
+        p {
+            text-indent: 2em
+        }
+    </style>
+</head>
+
+<body>
+    <h1>1.简介</h1>
+    <p>
+        《扫雷》是一款大众类的益智小游戏，于1992年发行。游戏目标是在最短的时间内根据点击格子出现的数字找出所有非雷格子，同时避免踩雷，踩到一个雷即全盘皆输。 扫雷在科技历史上也扮演了相似的角色。这个基于数字的逻辑谜题最早来自20实际六七十年代，当时候Jerimac Ratliff推出的名为“Cube”的游戏已经非常受人欢迎。 几十年后的1992年，扫雷游戏被加入了Windows3.1，这并不是为了展示Windows是游戏操作系统专家，而是为了训练用户的鼠标左右键操作能力，让这些动作变得非常自然， 并培养鼠标移动的速度和准确性。
+    </p>
+    <p>
+        扫雷最原始的版本可以追溯到1973年一款名为“方块”的游戏。不久，“方块”被改写成了游戏“Rlogic”。在“Rlogic”里，玩家的任务是作为美国海军陆战队队员， 为指挥中心探出一条没有地雷的安全路线，如果路全被地雷堵死就算输。两年后，汤姆·安德森在“Rlogic”的基础上又编写出了游戏“地雷”，由此奠定了现代扫雷游戏的雏形。 1981年，微软公司的罗伯特·杜尔和卡特·约翰逊两位工程师在Windows3.1系统上加载了该游戏，扫雷游戏才正式在全世界推广开来。这款游戏的玩法是在一个9*9(初级)，
+        16*16(中级)，16*30(高级)，或自定义大小的方块矩阵中随机布置一定量的地雷(初级为10个，中级为40个，高级为99个)。由玩家逐个翻开方块，以找出所有地雷为最终游戏目标。 如果玩家翻开的方块有地雷，则游戏结束。
+    </p>
+    <img height="400px" weight="200px" src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=860cfbd7b8b7d0a26fc40ccfaa861d6c/0ff41bd5ad6eddc47ae2239e33dbb6fd52663349.jpg" />
+    <p>
+        扫雷所用技巧可分为几类：正向推理、反向推理、概率分析，下面来一一分析
+    </p>
+    <h1>0. 图例</h1>
+    <table>
+        <tr>
+            <td>非雷块，周围0雷</td>
+            <td id="td0"></td>
+            <script type="text/javascript">
+                addMine("td0", [
+                    [0]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围1雷</td>
+            <td id="td1"></td>
+            <script type="text/javascript">
+                addMine("td1", [
+                    [1]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围2雷</td>
+            <td id="td2"></td>
+            <script type="text/javascript">
+                addMine("td2", [
+                    [2]
+                ]);
+            </script>
+        </tr>
+        <tr>
+            <td>非雷块，周围3雷</td>
+            <td id="td3"></td>
+            <script type="text/javascript">
+                addMine("td3", [
+                    [3]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围4雷</td>
+            <td id="td4"></td>
+            <script type="text/javascript">
+                addMine("td4", [
+                    [4]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围5雷</td>
+            <td id="td5"></td>
+            <script type="text/javascript">
+                addMine("td5", [
+                    [5]
+                ]);
+            </script>
+        </tr>
+        <tr>
+            <td>非雷块，周围6雷</td>
+            <td id="td6"></td>
+            <script type="text/javascript">
+                addMine("td6", [
+                    [6]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围7雷</td>
+            <td id="td7"></td>
+            <script type="text/javascript">
+                addMine("td7", [
+                    [7]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>非雷块，周围8雷</td>
+            <td id="td8"></td>
+            <script type="text/javascript">
+                addMine("td8", [
+                    [8]
+                ]);
+            </script>
+        </tr>
+        <tr>
+            <td>雷块</td>
+            <td id="td9"></td>
+            <script type="text/javascript">
+                addMine("td9", [
+                    [100]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>未探测块</td>
+            <td id="td10"></td>
+            <script type="text/javascript">
+                addMine("td10", [
+                    [101]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>标记为未知的未探测块</td>
+            <td id="td11"></td>
+            <script type="text/javascript">
+                addMine("td11", [
+                    [102]
+                ]);
+            </script>
+        </tr>
+        <tr>
+            <td>标记为雷的未探测块</td>
+            <td id="td12"></td>
+            <script type="text/javascript">
+                addMine("td12", [
+                    [103]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>当前块为雷概率1/2</td>
+            <td id="td13"></td>
+            <script type="text/javascript">
+                addMine("td13", [
+                    [12]
+                ]);
+            </script>
+            <td/>&nbsp;&nbsp;&nbsp;
+            <td/>
+            <td>当前块为雷概率1/3</td>
+            <td id="td14"></td>
+            <script type="text/javascript">
+                addMine("td14", [
+                    [13]
+                ]);
+            </script>
+        </tr>
+    </table>
+    <h1>1. 正向推理</h1>
+    <h2>(1) n - n定势-1</h2>
+    <table id="ta0">
+        <tr>
+            &nbsp;&nbsp;如下图，将雷区看成2部分，左侧2个为A区，右下侧2个为B区，从右侧1可知，B区2块必有1个为雷， 由中间的1可知，A区+B区的4个块必有1个为雷，因此A区2块均不是雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta0", [
+                [0, 0, 0, 0],
+                [101, 1, 1, 0],
+                [101, 101, 101, 0]
+            ])
+        </script>
+    </table>
+    <table id="ta1">
+        <tr>
+            &nbsp;&nbsp;推理结果如下图；推广到一般情况，将1-1换成2-2, 3-3, ...都适用
+        </tr>
+        <script type="text/javascript">
+            addMine("ta1", [
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [0, 12, 12, 0]
+            ])
+        </script>
+    </table>
+    <h2>(2) n - n定势-2</h2>
+    <table id="ta2">
+        <tr>
+            &nbsp;&nbsp;如下图，将雷区看成3部分，左侧3个为A区，右上侧2个为B区，右下侧2个为C区，从右侧的1可知，B区+C区的4块必有1个为雷， 由中间的1可知，A区+B区+C区的7个块必有1个为雷，因此A区3块均不是雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta2", [
+                [101, 101, 101, 0],
+                [101, 1, 1, 0],
+                [101, 101, 101, 0]
+            ])
+        </script>
+    </table>
+    <table id="ta3">
+        <tr>
+            &nbsp;&nbsp;推理结果如下图；推广到一般情况，将1-1换成2-2, 3-3, ...都适用
+        </tr>
+        <script type="text/javascript">
+            addMine("ta3", [
+                [0, 14, 14, 0],
+                [0, 1, 1, 0],
+                [0, 14, 14, 0]
+            ])
+        </script>
+    </table>
+    <h2>(3) n - n+1定势</h2>
+    <table id="ta4">
+        <tr>
+            &nbsp;&nbsp;如下图，将雷区看成2部分，左下侧2个为A区，右下侧1个为B区，从中间的1可知，A区2块必有1个为雷， 由右侧的2可知，A区+B区的3个块必有2个为雷，B区的1块必为雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta4", [
+                [0, 0, 0, 0],
+                [0, 1, 2, 0],
+                [0, 101, 101, 101]
+            ])
+        </script>
+    </table>
+    <table id="ta5">
+        <tr>
+            &nbsp;&nbsp;推理结果如下图；推广到一般情况，将右上侧1-1换成2-2, 3-3, ...都适用
+        </tr>
+        <script type="text/javascript">
+            addMine("ta5", [
+                [0, 0, 0, 0],
+                [0, 1, 2, 0],
+                [0, 12, 12, 100]
+            ])
+        </script>
+    </table>
+    <h2>(4) 3-1定势</h2>
+    <table id="ta6">
+        <tr>
+            &nbsp;&nbsp;如下图，将雷区看成2部分，左侧2个为A区，中上侧2个为B区，右上侧1个为C区，如下结论成立：<br/> ①B区+C区3块必有1个为雷 => B区至多1个雷 (从右侧1得到)<br/> ②A区+B区的4块必有3个为雷 (从中间3得到)<br/> &nbsp;&nbsp;而A区只有2个块，要满足总雷数3，那么A区有2雷，B区有1雷，那么C区就不是雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta6", [
+                [101, 101, 101, 101],
+                [101, 3, 1, 0],
+                [0, 0, 0, 0]
+            ])
+        </script>
+    </table>
+    <table id="ta7">
+        <tr>
+            &nbsp;&nbsp;推理结果如下图
+        </tr>
+        <script type="text/javascript">
+            addMine("ta7", [
+                [100, 12, 12, 0],
+                [100, 3, 1, 0],
+                [0, 0, 0, 0]
+            ])
+        </script>
+    </table>
+    <h2>(5) 镜像定势</h2>
+    <table id="ta8">
+        <tr>
+            &nbsp;&nbsp;如下图，将雷区看成2部分，左侧3个为A区，中右侧5个为B区，由左侧的2可知A区3块有2个雷，由中间的2可知A区+B区8个块共有2个雷， 那么B区5个都不是雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta8", [
+                [0, 101, 101, 101],
+                [2, 101, 2, 101],
+                [0, 101, 101, 101]
+            ])
+        </script>
+    </table>
+    <table id="ta9">
+        <tr>
+            &nbsp;&nbsp;推理结果如下图
+        </tr>
+        <script type="text/javascript">
+            addMine("ta9", [
+                [0, 23, 0, 0],
+                [2, 23, 0, 0],
+                [0, 23, 0, 0]
+            ])
+        </script>
+    </table>
+    正在梳理
+    <h1>2. 反向推理</h1>
+    正在梳理
+    <h1>3. 概率分析</h1>
+    <h2>盘面统计</h2>
+    在扫雷刚开始时，计算一下盘面，比如8*8的棋盘，30颗雷，概率=30/64，任意挖雷有50%的几率触雷。<br/>
+    <table id="ta200">
+        <tr>
+            &nbsp;&nbsp;如下图,数字1的块相邻块触雷概率1/8，在这种情况下，比任意挖雷的50%几率低，因此首选在1附近挖雷
+        </tr>
+        <script type="text/javascript">
+            addMine("ta200", [
+                [101, 101, 101],
+                [101, 1, 101],
+                [101, 101, 101],
+            ])
+        </script>
+    </table>
+</body>
+
+</html>
